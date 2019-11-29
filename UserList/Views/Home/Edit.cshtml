@@ -1,0 +1,69 @@
+﻿@model UserList.ViewModels.User.EditUserVM
+
+@{
+    ViewData["Title"] = "Edit User";
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="EditRedirect" enctype="multipart/form-data">
+                <input asp-for="@Model.User.Id" name="Id" type="hidden" />
+                <div class="form-group">
+                    <label asp-for="@Model.User.FirstName" class="control-label"></label>
+                    <input asp-for="@Model.User.FirstName" name="FirstName" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.User.LastName" class="control-label"></label>
+                    <input asp-for="@Model.User.LastName" name="LastName" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.User.Gender" class="control-label"></label>
+                    <input asp-for="@Model.User.Gender" name="Gender" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.User.Identity" class="control-label"></label>
+                    <input asp-for="@Model.User.Identity" name="Identity" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.User.BirthDate" class="control-label"></label>
+                    <input asp-for="@Model.User.BirthDate" name="BirthDate" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <select name="CityId" class="form-control">
+                        @{
+                            foreach (var m in Model.Cities)
+                            {
+                                <option value="@m.Id">@m.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.User.Image" class="control-label"></label>
+                    <input name="Image" class="form-control" type="file" />
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Single" asp-route-id="@Model.User.Id">Back to Details Page</a>
+    </div>
+
+</body>
+</html>

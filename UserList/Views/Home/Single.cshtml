@@ -1,0 +1,101 @@
+﻿@model UserList.ViewModels.User.GetUserVM
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+
+    <div>
+        <h4>@Model.User.FirstName @Model.User.LastName</h4>
+        <hr />
+        <img src="@Model.User.Image" style="max-width: 400px; max-height: 400px; width: auto; height: auto;" />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.User.FirstName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.User.FirstName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.User.LastName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.User.LastName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.User.Gender)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.User.Gender)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.User.Identity)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.User.Identity)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.User.BirthDate)
+            </dt>
+            <dd class="col-sm-10">
+                @{ var date = Model.User.BirthDate.ToShortDateString();}
+                @Html.DisplayFor(model => date)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.User.City)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.User.City)
+            </dd>
+        </dl>
+        <h6>Phones</h6>
+
+        @{
+            foreach (var phone in Model.User.Phones)
+            {
+                <p class="col-sm-10">
+                    Type: @phone.Type, Number: @phone.Number | <a asp-action="EditPhone" asp-route-id="@phone.Id" asp-route-userId="@Model.User.Id" asp-route-type="@phone.Type" asp-route-number="@phone.Number">Edit</a> | <a asp-action="RemovePhone" asp-route-id="@phone.Id" asp-route-userId="@Model.User.Id">Remove</a>
+                </p>
+            }
+        }
+        <a asp-action="AddPhone" asp-route-UserId="@Model.User.Id">Add New Phone</a>
+
+        <h5>Connected Users</h5>
+        @{
+            foreach (var user in Model.User.ConnectedUsers)
+            {
+                <p class="col-sm-10">
+                    Type: @user.Type, Name: @user.Name | <a asp-action="RemoveConnection" asp-route-id="@user.Id" asp-route-userId="@Model.User.Id">Remove</a>
+                </p>
+            }
+        }
+
+        <h5>Connection Report</h5>
+        @{
+            foreach (var conn in Model.ConnectionReport)
+            {
+                <p>
+                    Type: @conn.Type, Amount: @conn.Amount
+                </p>
+            }
+        }
+        <a asp-action="Connect" asp-route-UserId="@Model.User.Id">Connect to new User</a>
+
+    </div>
+    <br />
+    <div>
+        <a asp-action="Edit" asp-route-Id="@Model.User.Id">Edit</a> | <a asp-action="Delete" asp-route-Id="@Model.User.Id">Delete</a>
+        <br />
+        <a asp-action="Index">Back to List</a>
+    </div>
+</body>
+</html>

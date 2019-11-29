@@ -1,0 +1,42 @@
+﻿@model UserList.Dtos.Phone.PhoneDto
+@{
+    ViewData["Title"] = "Add Phone";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Add Phone</title>
+</head>
+<body>
+
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="AddPhoneRedirect">
+                <input type="hidden" asp-for="@Model.UserId" name="UserId" />
+                <div class="form-group">
+                    <label class="control-label">Phone Type</label>
+                    <input name="Type" class="form-control" type="text" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Phone Number</label>
+                    <input name="Number" class="form-control" type="text" />
+                </div>
+
+                <br />
+
+                <div class="form-group">
+                    <input type="submit" value="Add" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div>
+        <a asp-action="Single" asp-route-id="@Model.UserId">Back to User Details</a>
+    </div>
+
+</body>
+</html>

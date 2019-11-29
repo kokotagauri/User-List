@@ -1,0 +1,84 @@
+﻿@model UserList.Models.Paging.PagingModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<form asp-action="Index" method="get" style="text-align: center">
+    <div class="form-action">
+        <a></a>
+        <div style="display: inline-block;"><a asp-action="DetailedSearch">Detailed Search </a></div>
+        <div style="display: inline-block;"><input class="form-control" type="text" name="firstName" value="@Model.FirstName" placeholder="First Name"/></div>
+        <div style="display: inline-block;"><input class="form-control" type="text" name="lastName" value="@Model.LastName" placeholder="Last Name"/></div>
+        <div style="display: inline-block;"><input class="form-control" type="text" name="identity" value="@Model.Identity" placeholder="Identity"/></div>
+        <div style="margin-left: 20px; display: inline-block;"><input type="submit" value="Search" class="btn btn-success"/></div>
+    </div>
+</form>
+
+<br />
+<br />
+
+<div class="container" style="text-align: center">
+    <div style="display: inline-block; text-align: center;">
+        @{
+            foreach (var user in Model.Data)
+            {
+                <div class="card mb-4 ml-4" style="min-width: 200px; max-width: 200px; max-height: 400px; min-height: 400px; width: auto; height: auto; display: inline-block;">
+                    <img class="card-img-top" src="@user.Image" alt="Card image" style="max-width: 200px; max-height: 200px; width: auto; height: auto;">
+                    <a asp-controller="Home" asp-action="Single" asp-route-id="@user.Id">
+                        <h4 class="card-title" style="text-align: center; cursor: pointer;">@user.FirstName @user.LastName</h4>
+                    </a>
+                    <div class="card-body">
+                        <p>Gender: @user.Gender</p>
+                        <p>Identity: @user.Identity</p>
+                        <p>Birth Date: @user.BirthDate.ToShortDateString()</p>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    <br/>
+    
+    <ul class="pagination justify-content-center" style="margin-top: 20px;">
+        <li class="page-item @(Model.CurrentPage > 1 ? "" : "disabled")">
+            <a class="page-link" asp-action="Index"
+               asp-route-firstName="@Model.FirstName"
+               asp-route-lastName="@Model.LastName"
+               asp-route-identity="@Model.Identity"
+               asp-route-gender="@Model.Gender"
+               asp-route-city="@Model.City"
+               asp-route-birthDate="@Model.BirthDate"
+               asp-route-page="@(Model.CurrentPage - 1)">
+                Previous
+            </a>
+        </li>
+        @{
+            for (var i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-action="Index"
+                       asp-route-firstName="@Model.FirstName"
+                       asp-route-lastName="@Model.LastName"
+                       asp-route-identity="@Model.Identity"
+                       asp-route-gender="@Model.Gender"
+                       asp-route-city="@Model.City"
+                       asp-route-birthDate="@Model.BirthDate"
+                       asp-route-page="@i">
+                        @i
+                    </a>
+                </li>
+            }
+        }
+        <li class="page-item  @(Model.CurrentPage < Model.TotalPages ? "" : "disabled")">
+            <a class="page-link" asp-action="Index"
+               asp-route-firstName="@Model.FirstName"
+               asp-route-lastName="@Model.LastName"
+               asp-route-identity="@Model.Identity"
+               asp-route-gender="@Model.Gender"
+               asp-route-city="@Model.City"
+               asp-route-birthDate="@Model.BirthDate"
+               asp-route-page="@(Model.CurrentPage + 1)">Next</a>
+        </li>
+    </ul>
+</div>
+
+

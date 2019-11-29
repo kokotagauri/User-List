@@ -1,0 +1,44 @@
+﻿@model UserList.Dtos.Phone.PhoneDto
+
+@{
+    ViewData["Title"] = "Edit Phone";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit Phone</title>
+</head>
+<body>
+
+    <h4>Edit Phone</h4>
+    <hr />
+    
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="EditPhoneRedirect">
+                <input asp-for="Id" class="form-control" type="hidden" />
+                <input asp-for="UserId" class="form-control" type="hidden" />
+                <div class="form-group">
+                    <label asp-for="Type" class="control-label"></label>
+                    <input asp-for="Type" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Number" class="control-label"></label>
+                    <input asp-for="Number" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Single" asp-route-id="@Model.UserId">Back to User Details</a>
+    </div>
+
+</body>
+</html>

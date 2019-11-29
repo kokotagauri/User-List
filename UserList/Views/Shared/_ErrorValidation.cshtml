@@ -1,0 +1,12 @@
+﻿@{
+
+    var errorList = ViewData["error"] as List<string>;
+
+    if (errorList != null)
+    {
+        foreach (var error in errorList)
+        {
+            <p style="color: red">@error</p>
+        }
+    }
+}

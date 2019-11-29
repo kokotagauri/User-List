@@ -1,0 +1,46 @@
+﻿@model UserList.ViewModels.ConnectedUser.ConnectVM
+
+@{
+    ViewData["Title"] = "Connect to User";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Connect</title>
+</head>
+<body>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ConnectRedirect">
+            <input type="hidden" asp-for="@Model.ConnectedUser.UserId" name="UserId"/>
+            <div class="form-group">
+                <label class="control-label">Connection Type</label>
+                <input name="Type" class="form-control" type="text" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">User</label>
+                <select name="ConnectedUserId" class="form-control user-name">
+                    @{
+                        foreach (var m in Model.Users)
+                        {
+                            <option value="@m.Id">@m.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <br />
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
